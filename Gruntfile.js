@@ -3,6 +3,16 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    exec: {
+      require: 'node ./node_modules/requirejs/bin/r.js -o ./build.js'
+    },
+    requirejs: {
+      compile: {
+        options: {
+          mainConfigFile: 'assets/almond.js'
+        }
+      }
+    },
     jscs: {
       gruntfile: ['Gruntfile.js'],
       js: ['assets/**/*.js'],
@@ -20,6 +30,7 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
+
         //nameCache: 'grunt-uglify-cache.json',
         banner: ''
       },
@@ -57,15 +68,23 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
+  // Load the plugin that provides the 'uglify' task.
   grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jscs', 'jshint', 'uglify', 'cssmin', 'watch']);
+
+  grunt.registerTask('test', ['clean', 'jscs', 'jshint']);
+
+  grunt.registerTask('release', ['exec']);
+
+  grunt.registerTask('require', ['clean', 'requirejs']);
 
 };
