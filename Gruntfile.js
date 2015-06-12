@@ -9,8 +9,18 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          mainConfigFile: 'assets/almond.js'
+          mainConfigFile: 'assets/require-config.js',
+          name: "assets/js/main",
+          dir: './built',
+          //out: "./build/require-build.js",
+          
+          
         }
+      }
+    },
+    bowerRequirejs: {
+      target: {
+        rjsConfig: 'assets/require-config.js'
       }
     },
     jscs: {
@@ -49,6 +59,30 @@ module.exports = function(grunt) {
         dest: 'build'
       }
     },
+		filerev: {
+			options: {
+				algorithm: 'md5',
+				length: 8
+			},
+      // images: {
+      //   src: 'dist/assets/img/**/*.{jpg,jpeg,gif,png,webp}'
+      // },
+			js: {
+				src: 'assets/**/*.js',
+        dest: 'build',
+        expand: true
+			}
+		},
+		filerev_assets: {
+			dist: {
+				options: {
+					dest: 'build/assets.json',
+					cwd: 'build/',
+					prettyPrint: true,
+					prefix: ''
+				}
+			}
+		},
     watch: {
       options: {
         spawn: false
@@ -77,6 +111,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-bower-requirejs');
+  grunt.loadNpmTasks('grunt-filerev');
+  grunt.loadNpmTasks('grunt-filerev-assets');  
 
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jscs', 'jshint', 'uglify', 'cssmin', 'watch']);
@@ -86,5 +123,9 @@ module.exports = function(grunt) {
   grunt.registerTask('release', ['exec']);
 
   grunt.registerTask('require', ['clean', 'requirejs']);
+
+  grunt.registerTask('brequire', ['clean', 'bowerRequirejs']);
+  
+  grunt.registerTask('file', ['clean', 'filerev', 'filerev_assets']);
 
 };
