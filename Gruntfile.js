@@ -73,13 +73,16 @@ module.exports = function(grunt) {
       }
     },
     requirejs_map: {
-      options: {
-        assetsMapFile: '<%= buildPath %>/assets.json',
-        mainConfigFile: 'assets/require-config.json',
-        dest: '<%= buildPath %>'
-      },
       compile: {
-        src: '<%= buildPath %>/**/*.js'
+        options: {
+          assetsDir: '<%= buildPath %>/',
+          assetsMapFile: '<%= buildPath %>/assets.json',
+          mainConfigFile: './assets/require-config.json',
+          dest: '<%= buildPath %>/require-map.json'
+        },
+        files: {
+          'build': ['<%= buildPath %>/**/*.js']
+        }
       }
     },
     watch: {
