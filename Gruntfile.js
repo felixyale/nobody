@@ -27,27 +27,26 @@ module.exports = function(grunt) {
       },
       build: {
         expand: true,
-        cwd: 'assets',
-        src: '**/*.js',
+        cwd: '<%= buildPath %>',
+        src: 'assets/**/*.js',
         dest: '<%= buildPath %>'
       }
     },
     cssmin: {
       build: {
         expand: true,
-        cwd: 'assets',
-        src: '**/*.css',
+        cwd: '<%= buildPath %>',
+        src: 'assets/**/*.css',
         dest: '<%= buildPath %>'
       }
     },
     filerev: {
       options: {
         algorithm: 'md5',
-        length: 8,
-        dest: '<%= buildPath %>'
+        length: 8
       },
       images: {
-        src: 'assets/**/*.{jpg,jpeg,gif,png,webp}',
+        src: 'assets/**/*.{png,jpg,jpeg,gif,eot,svg,ttf,woff}',
         dest: '<%= buildPath %>',
         expand: true
       },
@@ -85,6 +84,16 @@ module.exports = function(grunt) {
         }
       }
     },
+
+    // Replace references to the images in the compiled js and css files, and the html views 
+    filerev_replace: {
+      options: {
+        assets_root: '<%= buildPath %>'
+      },
+      compiled_assets: {
+        src: '<%= buildPath %>/**/*.css'
+      }
+    },
     watch: {
       options: {
         spawn: false
@@ -114,14 +123,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-filerev-assets');
   grunt.loadNpmTasks('grunt-requirejs-map');
+  grunt.loadNpmTasks('grunt-filerev-replace');
 
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'jscs', 'jshint', 'uglify', 'cssmin', 'watch']);
+  // grunt.registerTask('default', ['clean', 'jscs', 'jshint', 'uglify', 'cssmin', 'watch']);
 
-  grunt.registerTask('test', ['clean', 'jscs', 'jshint']);
-
-  grunt.registerTask('file', ['clean', 'filerev', 'filerev_assets']);
-
-  grunt.registerTask('map', ['file', 'requirejs_map']);
+  grunt.registerTask('test', ['jscs', 'jshint']);
+  
+  grunt.registerTask('default', ['clean', 'filerev', 'filerev_assets', 'filerev_replace', 'requirejs_map', 'uglify', 'cssmin']);
 
 };

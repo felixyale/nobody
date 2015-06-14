@@ -2,4 +2,6 @@ body {
 	color: green;
 	font-size: 14px;
 	box-sizing: border-box;
+  background-image: url(../img/logo.png);
+  background-image: url(../img/grunt-logo.png);
 }

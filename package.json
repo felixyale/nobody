@@ -11,6 +11,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-filerev": "^2.3.1",
     "grunt-filerev-assets": "^0.3.2",
+    "grunt-filerev-replace": "^0.1.4",
     "grunt-jscs": "^1.8.0",
     "grunt-requirejs-map": "^0.2.0"
   }
