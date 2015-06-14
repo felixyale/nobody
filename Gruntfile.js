@@ -81,7 +81,7 @@ module.exports = function(grunt) {
           dest: '<%= buildPath %>/require-map.json'
         },
         files: {
-          'build': ['<%= buildPath %>/**/*.js']
+          build: ['<%= buildPath %>/**/*.js']
         }
       }
     },
@@ -119,10 +119,9 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['clean', 'jscs', 'jshint', 'uglify', 'cssmin', 'watch']);
 
   grunt.registerTask('test', ['clean', 'jscs', 'jshint']);
-  
+
   grunt.registerTask('file', ['clean', 'filerev', 'filerev_assets']);
-  
+
   grunt.registerTask('map', ['file', 'requirejs_map']);
-  
 
 };

@@ -1,3 +1,3 @@
-define('foo', ['bar'   , 'jquery'], function() {
+define('foo', ['bar', 'jquery'], function() {
   var foo = 'foo';
 });
