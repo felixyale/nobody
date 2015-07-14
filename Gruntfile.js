@@ -85,7 +85,7 @@ module.exports = function(grunt) {
       }
     },
 
-    // Replace references to the images in the compiled js and css files, and the html views 
+    // Replace references to the images in the compiled js and css files, and the html views
     filerev_replace: {
       options: {
         assets_root: '<%= buildPath %>'
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
   // grunt.registerTask('default', ['clean', 'jscs', 'jshint', 'uglify', 'cssmin', 'watch']);
 
   grunt.registerTask('test', ['jscs', 'jshint']);
-  
+
   grunt.registerTask('default', ['clean', 'filerev', 'filerev_assets', 'filerev_replace', 'requirejs_map', 'uglify', 'cssmin']);
 
 };
